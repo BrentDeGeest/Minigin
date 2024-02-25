@@ -87,8 +87,6 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	bool doContinue = true;
 	while (doContinue)
 	{
-		auto time = 0;
-		
 
 		doContinue = input.ProcessInput();
 		sceneManager.Update();
