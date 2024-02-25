@@ -9,6 +9,8 @@
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
+#include <chrono>
+#include <thread>
 
 SDL_Window* g_window{};
 
@@ -83,13 +85,35 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
 
+
+
+	// needs to be moved
+	const auto FPS = 60;
+	const auto msPerFrame = 1000 / FPS;
+	const auto fixedTimeStep = 0.02f;
+
 	// todo: this update loop could use some work.
 	bool doContinue = true;
+	auto lastTime = std::chrono::high_resolution_clock::now();
+	float lag = 0.0f;
 	while (doContinue)
 	{
+		const auto currentTime = std::chrono::high_resolution_clock::now();
+		const auto deltaTime = std::chrono::duration<float>(currentTime - lastTime).count();
+		lag += deltaTime;
 
 		doContinue = input.ProcessInput();
+
+		while (lag >= fixedTimeStep)
+		{
+			sceneManager.FixedUpdate(fixedTimeStep);
+			lag -= fixedTimeStep;
+		}
 		sceneManager.Update();
 		renderer.Render();
+
+		const auto sleepTime = currentTime + std::chrono::milliseconds(msPerFrame) - std::chrono::high_resolution_clock::now();
+		
+		std::this_thread::sleep_for(sleepTime);
 	}
 }
