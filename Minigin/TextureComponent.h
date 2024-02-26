@@ -9,7 +9,6 @@ namespace dae {
 	class TextureComponent : public BaseComponent
 	{
 	public:
-		TextureComponent();
 
 		void Update(float deltaTime) override;
 		void FixedUpdate(float fixedTimeStep) override;
@@ -17,6 +16,7 @@ namespace dae {
 
 		void SetTexture(const std::string& filename);
 
+		TextureComponent();
 		virtual ~TextureComponent() = default;
 		TextureComponent(const TextureComponent& other) = delete;
 		TextureComponent(TextureComponent&& other) = delete;

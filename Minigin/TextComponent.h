@@ -9,7 +9,9 @@ namespace dae
 {
 	class Font;
 	class Texture2D;
-	class TextObject final : public BaseComponent
+	class GameObject;
+
+	class TextComponent final : public BaseComponent
 	{
 	public:
 		void Update(float deltaTime) override;
@@ -20,16 +22,20 @@ namespace dae
 		void SetPosition(float x, float y);
 
 		void SetFont(std::shared_ptr<Font> font);
+		void SetNeedsAlwaysUpdate(bool needsUpdate);
 
-		TextObject(const std::string& text, std::shared_ptr<Font> font);
-		TextObject();
-		virtual ~TextObject() = default;
-		TextObject(const TextObject& other) = delete;
-		TextObject(TextObject&& other) = delete;
-		TextObject& operator=(const TextObject& other) = delete;
-		TextObject& operator=(TextObject&& other) = delete;
+		TextComponent();
+		//TextComponent(const std::string& text, std::shared_ptr<Font> font);
+		virtual ~TextComponent() = default;
+		TextComponent(const TextComponent& other) = delete;
+		TextComponent(TextComponent&& other) = delete;
+		TextComponent& operator=(const TextComponent& other) = delete;
+		TextComponent& operator=(TextComponent&& other) = delete;
+
 	private:
+		//friend class GameObject;
 		bool m_needsUpdate;
+		bool m_needsAlwaysUpdate;
 		std::string m_text;
 		Transform m_transform{};
 		std::shared_ptr<Font> m_font;

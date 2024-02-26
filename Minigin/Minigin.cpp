@@ -88,8 +88,8 @@ void dae::Minigin::Run(const std::function<void()>& load)
 
 
 	// needs to be moved
-	const auto FPS = 60;
-	const auto msPerFrame = 1000 / FPS;
+	const auto FPSComponent = 60;
+	const auto msPerFrame = 1000 / FPSComponent;
 	const auto fixedTimeStep = 0.02f;
 
 	// todo: this update loop could use some work.

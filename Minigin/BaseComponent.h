@@ -11,14 +11,16 @@ namespace dae
 		virtual void FixedUpdate(float fixedTimeStep) = 0;
 		virtual void Render(glm::vec3 pos) const = 0;
 
-		BaseComponent() = default;
 		virtual ~BaseComponent();
 		BaseComponent(const BaseComponent& other) = delete;
 		BaseComponent(BaseComponent&& other) = delete;
 		BaseComponent& operator=(const BaseComponent& other) = delete;
 		BaseComponent& operator=(BaseComponent&& other) = delete;
-	private:
+	protected:
+		BaseComponent() = default;
 
+		friend class GameObject;
+	private:
 	};
 }
 
