@@ -12,11 +12,10 @@ namespace dae
 	class GameObject final
 	{
 	public:
-		virtual void Update();
+		virtual void Update(float deltaTime);
 		virtual void FixedUpdate(float fixedTimeStep);
 		virtual void Render() const;
 
-		//void SetTexture(const std::string& filename);
 		void SetPosition(float x, float y);
 
 		// component code

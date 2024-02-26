@@ -8,7 +8,7 @@ dae::TextureComponent::TextureComponent()
 {
 }
 
-void dae::TextureComponent::Update()
+void dae::TextureComponent::Update(float)
 {
 }
 

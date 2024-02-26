@@ -17,7 +17,7 @@ dae::TextObject::TextObject():
 {
 }
 
-void dae::TextObject::Update()
+void dae::TextObject::Update(float)
 {
 	if (m_needsUpdate)
 	{

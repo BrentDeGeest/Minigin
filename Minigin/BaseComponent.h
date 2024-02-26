@@ -7,7 +7,7 @@ namespace dae
 	{
 	public:
 
-		virtual void Update() = 0;
+		virtual void Update(float deltaTime) = 0;
 		virtual void FixedUpdate(float fixedTimeStep) = 0;
 		virtual void Render(glm::vec3 pos) const = 0;
 
@@ -19,10 +19,6 @@ namespace dae
 		BaseComponent& operator=(BaseComponent&& other) = delete;
 	private:
 
-
-
-
 	};
-
 }
 

@@ -12,7 +12,7 @@ namespace dae
 	class TextObject final : public BaseComponent
 	{
 	public:
-		void Update() override;
+		void Update(float deltaTime) override;
 		void FixedUpdate(float fixedTimeStep) override;
 		void Render(glm::vec3 pos) const override;
 
