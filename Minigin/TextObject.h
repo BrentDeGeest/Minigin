@@ -1,23 +1,28 @@
 #pragma once
 #include <string>
 #include <memory>
-#include "GameObject.h"
+//#include "GameObject.h"
+#include "BaseComponent.h"
 #include "Transform.h"
 
 namespace dae
 {
 	class Font;
 	class Texture2D;
-	class TextObject final : public GameObject
+	class TextObject final : public BaseComponent
 	{
 	public:
 		void Update() override;
-		void Render() const override;
+		void FixedUpdate(float fixedTimeStep) override;
+		void Render(glm::vec3 pos) const override;
 
 		void SetText(const std::string& text);
 		void SetPosition(float x, float y);
 
+		void SetFont(std::shared_ptr<Font> font);
+
 		TextObject(const std::string& text, std::shared_ptr<Font> font);
+		TextObject();
 		virtual ~TextObject() = default;
 		TextObject(const TextObject& other) = delete;
 		TextObject(TextObject&& other) = delete;
