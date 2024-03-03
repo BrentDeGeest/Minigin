@@ -10,7 +10,15 @@ dae::GameObject::GameObject()
 {
 }
 
-dae::GameObject::~GameObject() = default;
+dae::GameObject::~GameObject() {
+	for (auto it = m_components.begin(); it != m_components.end(); )
+	{
+			it = m_components.erase(it);
+		
+			++it;
+		
+	}
+}
 
 void dae::GameObject::Update(float deltaTime) {
 	for (auto& component : m_components)

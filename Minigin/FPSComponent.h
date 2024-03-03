@@ -7,19 +7,20 @@ namespace dae {
 	class FPSComponent final : public BaseComponent
 	{
 	public:
-		FPSComponent();
+		FPSComponent(GameObject* gameObject);
 		void Update(float deltaTime) override;
-		void UpdateTextComponent();
 		void FixedUpdate(float fixedTimeStep) override;
 		void Render(glm::vec3 pos) const override;
-
+		void SetTextComponent(TextComponent* component);
 		float GetFps() const;
+
+		virtual ~FPSComponent();
 
 	private:
 		int m_FrameCount;
 		float m_Fps;
 		float m_ElapsedTime;
-		std::weak_ptr<TextComponent> m_textComponent;
+		TextComponent* m_TextComponent = nullptr;
 	};
 }
 

@@ -11,6 +11,7 @@
 #include "ResourceManager.h"
 #include <chrono>
 #include <thread>
+#include <iostream>
 
 SDL_Window* g_window{};
 
@@ -87,12 +88,10 @@ void dae::Minigin::Run(const std::function<void()>& load)
 
 
 
-	// needs to be moved
 	const auto FPSComponent = 60;
 	const auto msPerFrame = 1000 / FPSComponent;
-	const auto fixedTimeStep = 0.02f;
+	//const auto fixedTimeStep = 0.02f;
 
-	// todo: this update loop could use some work.
 	bool doContinue = true;
 	auto lastTime = std::chrono::high_resolution_clock::now();
 	float lag = 0.0f;
@@ -100,20 +99,29 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	{
 		const auto currentTime = std::chrono::high_resolution_clock::now();
 		const auto deltaTime = std::chrono::duration<float>(currentTime - lastTime).count();
+		lastTime = std::chrono::high_resolution_clock::now();
+
 		lag += deltaTime;
+
+		//std::cout << "first delta time: " + std::to_string(deltaTime) << std::endl;
 
 		doContinue = input.ProcessInput();
 
-		while (lag >= fixedTimeStep)
+		/*while (lag >= fixedTimeStep)
 		{
 			sceneManager.FixedUpdate(fixedTimeStep);
 			lag -= fixedTimeStep;
-		}
+		}*/
 		sceneManager.Update(deltaTime);
 		renderer.Render();
 
 		const auto sleepTime = currentTime + std::chrono::milliseconds(msPerFrame) - std::chrono::high_resolution_clock::now();
 		
+		//std::cout << sleepTime.count() << std::endl;
+
 		std::this_thread::sleep_for(sleepTime);
+
+		//std::cout << "last delta time: " + std::to_string(deltaTime) << std::endl;
+
 	}
 }

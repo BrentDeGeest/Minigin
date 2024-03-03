@@ -4,7 +4,8 @@
 #include "Transform.h"
 
 
-dae::TextureComponent::TextureComponent()
+dae::TextureComponent::TextureComponent(GameObject* gameObject):
+	BaseComponent(gameObject)
 {
 }
 

@@ -16,7 +16,7 @@ namespace dae {
 
 		void SetTexture(const std::string& filename);
 
-		TextureComponent();
+		TextureComponent(GameObject* gameObject);
 		virtual ~TextureComponent() = default;
 		TextureComponent(const TextureComponent& other) = delete;
 		TextureComponent(TextureComponent&& other) = delete;

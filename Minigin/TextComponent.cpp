@@ -5,6 +5,7 @@
 #include "Font.h"
 #include "Texture2D.h"
 #include "Transform.h"
+#include <iostream>
 
 
 
@@ -13,14 +14,15 @@
 //	: m_needsUpdate(true), m_text(text), m_font(std::move(font)), m_textTexture(nullptr)
 //{ }
 
-dae::TextComponent::TextComponent():
-	m_needsUpdate(true), m_needsAlwaysUpdate(false)
+dae::TextComponent::TextComponent(GameObject* gameObject):
+	BaseComponent(gameObject),
+	m_needsUpdate(true)
 {
 }
 
 void dae::TextComponent::Update(float)
 {
-	if (m_needsUpdate || m_needsAlwaysUpdate)
+	if (m_needsUpdate)
 	{
 		const SDL_Color color = { 255,255,255,255 }; // only white text is supported now
 		const auto surf = TTF_RenderText_Blended(m_font->GetFont(), m_text.c_str(), color);
@@ -35,6 +37,7 @@ void dae::TextComponent::Update(float)
 		}
 		SDL_FreeSurface(surf);
 		m_textTexture = std::make_shared<Texture2D>(texture);
+		std::cout << "texture updated.\n";
 		m_needsUpdate = false;
 	}
 }
@@ -56,7 +59,7 @@ void dae::TextComponent::Render(glm::vec3 pos) const
 void dae::TextComponent::SetText(const std::string& text)
 {
 	m_text = text;
-	m_needsAlwaysUpdate = true;
+	m_needsUpdate = true;
 }
 
 void dae::TextComponent::SetPosition(const float x, const float y)
@@ -69,9 +72,6 @@ void dae::TextComponent::SetFont(std::shared_ptr<Font> font)
 	m_font = std::move(font);
 }
 
-void dae::TextComponent::SetNeedsAlwaysUpdate(bool needsUpdate)
-{
-	m_needsAlwaysUpdate = needsUpdate;
-}
+
 
 

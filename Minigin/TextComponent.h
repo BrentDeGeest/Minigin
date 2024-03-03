@@ -22,9 +22,8 @@ namespace dae
 		void SetPosition(float x, float y);
 
 		void SetFont(std::shared_ptr<Font> font);
-		void SetNeedsAlwaysUpdate(bool needsUpdate);
 
-		TextComponent();
+		TextComponent(GameObject* gameObject);
 		//TextComponent(const std::string& text, std::shared_ptr<Font> font);
 		virtual ~TextComponent() = default;
 		TextComponent(const TextComponent& other) = delete;
@@ -35,7 +34,6 @@ namespace dae
 	private:
 		//friend class GameObject;
 		bool m_needsUpdate;
-		bool m_needsAlwaysUpdate;
 		std::string m_text;
 		Transform m_transform{};
 		std::shared_ptr<Font> m_font;

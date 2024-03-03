@@ -3,6 +3,7 @@
 
 namespace dae
 {
+	class GameObject;
 	class BaseComponent
 	{
 	public:
@@ -17,10 +18,11 @@ namespace dae
 		BaseComponent& operator=(const BaseComponent& other) = delete;
 		BaseComponent& operator=(BaseComponent&& other) = delete;
 	protected:
-		BaseComponent() = default;
-
+		BaseComponent(GameObject* gameObject);
+		GameObject* GetOwner()const;
 		friend class GameObject;
 	private:
+		GameObject* m_Owner;
 	};
 }
 

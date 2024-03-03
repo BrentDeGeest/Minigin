@@ -5,10 +5,8 @@
 
 namespace dae
 {
-	//class Texture2D;
 	class BaseComponent;
 
-	// todo: this should become final.
 	class GameObject final
 	{
 	public:
@@ -21,7 +19,7 @@ namespace dae
 		// component code
 		template<typename T> 
 		T* AddComponent() {
-			std::unique_ptr<T> newComponent = std::make_unique<T>();
+			std::unique_ptr<T> newComponent = std::make_unique<T>(this);
 			m_components.push_back(std::move(newComponent));
 			return dynamic_cast<T*>(m_components.back().get());
 		};
@@ -56,9 +54,6 @@ namespace dae
 
 	private:
 		Transform m_transform{};
-		// todo: mmm, every gameobject has a texture? Is that correct?
-		//std::shared_ptr<Texture2D> m_texture{};
-
 		std::vector<std::unique_ptr<BaseComponent>> m_components;
 		bool m_IsActive{ true };
 	};

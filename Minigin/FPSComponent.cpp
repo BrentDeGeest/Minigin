@@ -4,10 +4,22 @@
 #include "Transform.h"
 #include <chrono>
 #include "TextComponent.h"
+#include "GameObject.h"
+#include <iostream>
 
-dae::FPSComponent::FPSComponent() :
-    m_FrameCount{0}, m_Fps{0.0f}, m_ElapsedTime{0.0f}
+dae::FPSComponent::FPSComponent(GameObject* gameObject) :
+    BaseComponent(gameObject),
+    m_FrameCount{0}, m_Fps{0.0f}, m_ElapsedTime{0.0f}, m_TextComponent{}
 {
+   if (GetOwner() != nullptr) {
+       m_TextComponent = GetOwner()->GetComponent<TextComponent>();
+       std::cout << "Constructor complete.\n";
+       
+   }
+}
+dae::FPSComponent::~FPSComponent()
+{
+    delete m_TextComponent;
 }
 
 void dae::FPSComponent::Update(float deltaTime)
@@ -17,27 +29,18 @@ void dae::FPSComponent::Update(float deltaTime)
 
     // Accumulate elapsed time
     m_ElapsedTime += deltaTime;
-
+   // std::cout << m_ElapsedTime << std::endl;
     // If one second has elapsed, calculate FPSComponent
     if (m_ElapsedTime >= 1.0f) {
+        std::cout << "1 sec elapsed\n";
         // Calculate FPSComponent
         m_Fps = static_cast<float>(m_FrameCount) / m_ElapsedTime;
-        UpdateTextComponent();
+        std::cout << "fps: " << m_Fps << std::endl;
+        std::string fpsText = std::format("{:.1f} fps", m_Fps);
+        m_TextComponent->SetText(fpsText);
         // Reset frame count and elapsed time for next second
         m_FrameCount = 0;
         m_ElapsedTime -= 1.0f;
-    }
-}
-
-void dae::FPSComponent::UpdateTextComponent()
-{
-    if (auto textComponentSharedPtr = m_textComponent.lock()) {
-        auto textComponent = textComponentSharedPtr.get();
-        float fps = GetFps();
-        std::stringstream ss;
-        ss << std::fixed << std::setprecision(1) << fps;
-        std::string fpsText = ss.str();
-        textComponent->SetText(fpsText);
     }
 }
 
@@ -50,7 +53,14 @@ void dae::FPSComponent::Render(glm::vec3) const
 {
 }
 
+void dae::FPSComponent::SetTextComponent(TextComponent* component)
+{
+    m_TextComponent = component;
+}
+
 float dae::FPSComponent::GetFps() const
 {
 	return m_Fps;
 }
+
+
