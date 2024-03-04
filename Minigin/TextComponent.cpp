@@ -37,7 +37,6 @@ void dae::TextComponent::Update(float)
 		}
 		SDL_FreeSurface(surf);
 		m_textTexture = std::make_shared<Texture2D>(texture);
-		std::cout << "texture updated.\n";
 		m_needsUpdate = false;
 	}
 }
@@ -64,7 +63,7 @@ void dae::TextComponent::SetText(const std::string& text)
 
 void dae::TextComponent::SetPosition(const float x, const float y)
 {
-	m_transform.SetPosition(x, y, 0.0f);
+	m_transform.SetWorldPosition(x, y, 0.0f);
 }
 
 void dae::TextComponent::SetFont(std::shared_ptr<Font> font)

@@ -87,10 +87,9 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& input = InputManager::GetInstance();
 
 
-
-	const auto FPSComponent = 60;
-	const auto msPerFrame = 1000 / FPSComponent;
-	//const auto fixedTimeStep = 0.02f;
+	const auto targetFPS = 60;
+	const auto msPerFrame = 1000 / targetFPS;
+	const auto fixedTimeStep = 0.02f;
 
 	bool doContinue = true;
 	auto lastTime = std::chrono::high_resolution_clock::now();
@@ -103,25 +102,18 @@ void dae::Minigin::Run(const std::function<void()>& load)
 
 		lag += deltaTime;
 
-		//std::cout << "first delta time: " + std::to_string(deltaTime) << std::endl;
-
 		doContinue = input.ProcessInput();
 
-		/*while (lag >= fixedTimeStep)
+		while (lag >= fixedTimeStep)
 		{
 			sceneManager.FixedUpdate(fixedTimeStep);
 			lag -= fixedTimeStep;
-		}*/
+		}
 		sceneManager.Update(deltaTime);
 		renderer.Render();
 
 		const auto sleepTime = currentTime + std::chrono::milliseconds(msPerFrame) - std::chrono::high_resolution_clock::now();
 		
-		//std::cout << sleepTime.count() << std::endl;
-
 		std::this_thread::sleep_for(sleepTime);
-
-		//std::cout << "last delta time: " + std::to_string(deltaTime) << std::endl;
-
 	}
 }

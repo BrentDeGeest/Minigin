@@ -2,7 +2,7 @@
 #include "GameObject.h"
 
 dae::BaseComponent::~BaseComponent() {
-	delete m_Owner;
+	//delete m_Owner;
 }
 
 dae::BaseComponent::BaseComponent(GameObject* gameObject):
@@ -10,7 +10,7 @@ dae::BaseComponent::BaseComponent(GameObject* gameObject):
 {
 }
 
-dae::GameObject* dae::BaseComponent::GetOwner() const
+dae::GameObject* dae::BaseComponent::GetOwner() 
 {
 	return m_Owner;
 }

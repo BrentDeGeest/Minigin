@@ -7,16 +7,19 @@ namespace dae
 	class Transform final 
 	{
 	public:
-		const glm::vec3& GetPosition() const { return m_position; }
+		const glm::vec3& GetWorldPosition() const { return m_WorldPosition; }
+		const glm::vec3& GetLocalPosition() const { return m_LocalPosition; }
 		const glm::vec3& GetSize() const { return m_size; }
-		const glm::vec3& GetRotation() const { return m_rotation; }
-		void SetPosition(float x, float y, float z);
+		const float GetRotation() const { return m_rotation; }
+		void SetWorldPosition(float x, float y, float z = 0.0f);
+		void SetLocalPosition(float x, float y, float z = 0.0f);
 		void SetSize(float x, float y, float z);
-		void SetRotation(float x, float y, float z);
+		void SetRotation(float rotation);
 		
 	private:
-		glm::vec3 m_position;
+		glm::vec3 m_WorldPosition;
+		glm::vec3 m_LocalPosition;
 		glm::vec3 m_size;
-		glm::vec3 m_rotation;
+		float m_rotation;
 	};
 }

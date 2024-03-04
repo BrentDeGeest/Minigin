@@ -13,8 +13,6 @@ dae::FPSComponent::FPSComponent(GameObject* gameObject) :
 {
    if (GetOwner() != nullptr) {
        m_TextComponent = GetOwner()->GetComponent<TextComponent>();
-       std::cout << "Constructor complete.\n";
-       
    }
 }
 dae::FPSComponent::~FPSComponent()

@@ -10,9 +10,9 @@ namespace dae
 	class GameObject final
 	{
 	public:
-		virtual void Update(float deltaTime);
-		virtual void FixedUpdate(float fixedTimeStep);
-		virtual void Render() const;
+		void Update(float deltaTime);
+		void FixedUpdate(float fixedTimeStep);
+		void Render() const;
 
 		void SetPosition(float x, float y);
 
@@ -46,16 +46,43 @@ namespace dae
 
 		// rule of 5
 		GameObject();
-		virtual ~GameObject();
+		~GameObject();
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
 
+
+		void SetParent(std::shared_ptr<GameObject> parent);
+		int GetChildCount()const;
+		GameObject* GetChildAt(size_t index) const;
+
+		glm::vec3 GetWorldPosition() const;
+		void SetLocalPosition(float x, float y);
+		glm::vec3 GetLocalPosition() const;
+
+		float GetRotation() const;
+		void SetRotation(float rotation);
+		
+		void SetDirty() { m_IsDirty = true; }
+		bool IsDirty() const { return m_IsDirty; }
+		void ClearDirty() { m_IsDirty = false; }
+	protected:
+
 	private:
 		Transform m_transform{};
 		std::vector<std::unique_ptr<BaseComponent>> m_components;
 		bool m_IsActive{ true };
+
+		// hierarchy system
+		std::vector<std::unique_ptr<GameObject>> m_Children;
+		std::shared_ptr<GameObject> m_Parent;
+
+		// hierarchy system
+		void AddChild(std::unique_ptr<GameObject> gameObject);
+		void RemoveChild(GameObject* gameObject);
+
+		bool m_IsDirty = true;
 	};
 	
 }

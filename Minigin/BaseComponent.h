@@ -17,10 +17,10 @@ namespace dae
 		BaseComponent(BaseComponent&& other) = delete;
 		BaseComponent& operator=(const BaseComponent& other) = delete;
 		BaseComponent& operator=(BaseComponent&& other) = delete;
+
+		GameObject* GetOwner();
 	protected:
 		BaseComponent(GameObject* gameObject);
-		GameObject* GetOwner()const;
-		friend class GameObject;
 	private:
 		GameObject* m_Owner;
 	};
