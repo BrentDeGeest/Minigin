@@ -17,7 +17,6 @@ dae::FPSComponent::FPSComponent(GameObject* gameObject) :
 }
 dae::FPSComponent::~FPSComponent()
 {
-    delete m_TextComponent;
 }
 
 void dae::FPSComponent::Update(float deltaTime)
@@ -30,10 +29,10 @@ void dae::FPSComponent::Update(float deltaTime)
    // std::cout << m_ElapsedTime << std::endl;
     // If one second has elapsed, calculate FPSComponent
     if (m_ElapsedTime >= 1.0f) {
-        std::cout << "1 sec elapsed\n";
+       // std::cout << "1 sec elapsed\n";
         // Calculate FPSComponent
         m_Fps = static_cast<float>(m_FrameCount) / m_ElapsedTime;
-        std::cout << "fps: " << m_Fps << std::endl;
+        //std::cout << "fps: " << m_Fps << std::endl;
         std::string fpsText = std::format("{:.1f} fps", m_Fps);
         m_TextComponent->SetText(fpsText);
         // Reset frame count and elapsed time for next second

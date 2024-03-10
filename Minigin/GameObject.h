@@ -19,7 +19,7 @@ namespace dae
 		// component code
 		template<typename T> 
 		T* AddComponent() {
-			std::unique_ptr<T> newComponent = std::make_unique<T>(this);
+			auto newComponent = std::make_unique<T>(this);
 			m_components.push_back(std::move(newComponent));
 			return dynamic_cast<T*>(m_components.back().get());
 		};
