@@ -99,6 +99,9 @@
     <ClInclude Include="TrashTheCache.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameActorCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ResourceManager.cpp">
@@ -171,6 +174,9 @@
       <Filter>imgui</Filter>
     </ClCompile>
     <ClCompile Include="TrashTheCache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameActorCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
